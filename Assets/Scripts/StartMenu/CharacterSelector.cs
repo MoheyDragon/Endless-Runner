@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterSelector : MonoBehaviour
+public class CharacterSelector :Singletons<CharacterSelector>
 {
    public void SelectCharacter(int characterIndex)
     {
