@@ -15,8 +15,13 @@ namespace EndlessRunner
 
         [Space]
         [SerializeField] float speed;
+        [SerializeField] float slideSpeed;
+        public float Speed => speed;
+
         private float laneChangeDuration=0.5f;
-        private bool isMoving;
+        private bool isSliding;
+        private bool isGameRunning;
+        public bool IsGameRunning => isGameRunning;
         private void Awake()
         {
             characterAnimator = GetComponent<CharacterAnimator>();
@@ -26,6 +31,7 @@ namespace EndlessRunner
         {
             SetupLanesPositions();
             SubscribeToSwipes();
+            isGameRunning = true;
         }
         private void SetupLanesPositions()
         {
@@ -57,20 +63,18 @@ namespace EndlessRunner
         {
             if (swipe.direction == SwipeDirection.RIGHT)
             {
-
                 if (currentLane == lanesXPos.Length - 1)
                 {
-                    HandleOutOfBoundriesSwipe();
+                    HandleOutOfBoundriesSwipe(SwipeDirection.RIGHT);
                     return;
                 }
                 Move(SwipeDirection.RIGHT);
             }
             else
             {
-
                 if (currentLane == 0)
                 {
-                    HandleOutOfBoundriesSwipe();
+                    HandleOutOfBoundriesSwipe(SwipeDirection.LEFT);
                     return;
                 }
                 Move(SwipeDirection.LEFT);
@@ -78,7 +82,7 @@ namespace EndlessRunner
         }
         private void Move(SwipeDirection direction)
         {
-            if (isMoving) return;
+            if (isSliding) return;
 
             int targetLane = currentLane + (direction == SwipeDirection.RIGHT ? 1 : -1);
 
@@ -89,12 +93,12 @@ namespace EndlessRunner
         }
         private IEnumerator SmoothMove(float targetX)
         {
-            isMoving = true;
+            isGameRunning = true;
             float elapsedTime = 0f;
             Vector3 startPosition = rb.position;
             Vector3 targetPosition = new Vector3(targetX, startPosition.y, startPosition.z);
 
-            float duration = laneChangeDuration / speed; 
+            float duration = laneChangeDuration / slideSpeed; 
 
             while (elapsedTime < duration)
             {
@@ -105,9 +109,9 @@ namespace EndlessRunner
             }
 
             rb.MovePosition(targetPosition);
-            isMoving = false;
+            isSliding = false;
         }
-        private void HandleOutOfBoundriesSwipe()
+        private void HandleOutOfBoundriesSwipe(SwipeDirection direction)
         {
             // Nothing for now 
         }

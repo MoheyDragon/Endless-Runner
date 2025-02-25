@@ -20,6 +20,10 @@ namespace EndlessRunner
         {
             animator.SetBool(jumpParameter, true);
         }
+        public void Land()
+        {
+            animator.SetBool(jumpParameter, false);
+        }
         private void Update()
         {
             if (Input.GetKey(KeyCode.LeftShift))

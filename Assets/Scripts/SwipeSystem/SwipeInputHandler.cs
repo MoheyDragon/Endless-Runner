@@ -9,8 +9,9 @@ namespace MoheySwipeSystem
         public Action<Swipe> OnVerticalSwipDetected;
         [SerializeField] float swipeDurationThreshold;
         [Space]
-        [SerializeField] float verticalSwipeThreshold;
         [SerializeField] float horizontalSwipeThreshold;
+        [Tooltip("Not used in this test")]
+        [SerializeField] float verticalSwipeThreshold;
         [HideInInspector]
         public bool isTouching;
         Vector2 startPos;
