@@ -18,6 +18,9 @@ namespace EndlessRunner
         [SerializeField] float slideSpeed;
         public float Speed => speed;
 
+        [Space]
+        [SerializeField] private float recoveryTime = 0.5f; 
+        [SerializeField] private float pushbackDistance = 5;
         private float laneChangeDuration=0.5f;
         private bool isSliding;
         private bool isGameRunning;
@@ -46,18 +49,44 @@ namespace EndlessRunner
             startPosition.x = lanesXPos[currentLane];
             transform.position = startPosition;
         }
-        public void SubscribeToSwipes()
-        {
-            SwipeInputHandler.Singleton.OnHorizontalSwipDetected += OnSwipe;
-            SwipeInputHandler.Singleton.OnTap += Jump;
-        }
         private int GetMiddleLane()
         {
             return lanesXPos.Length / 2;
         }
-        private void Jump()
+        public void OnHit()
         {
-            characterAnimator.Jump();
+            if (isRecovering) return;
+            StartCoroutine(SpeedRecovery());
+        }
+        bool isRecovering;
+        private IEnumerator SpeedRecovery()
+        {
+            isRecovering = true;
+            float elapsedTime = 0f;
+            float originalSpeed = speed;
+            float targetSpeed = -originalSpeed * pushbackDistance; 
+
+            while (elapsedTime < recoveryTime)
+            {
+                float t = elapsedTime / recoveryTime;
+                float easedT = Mathf.SmoothStep(0, 1, Mathf.Sin(t * Mathf.PI * 0.5f));
+                speed = Mathf.Lerp(targetSpeed, originalSpeed, easedT);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            speed = originalSpeed;
+            isRecovering = false;
+        }
+        public void OnGameEnd()
+        {
+            isGameRunning = false;
+            characterAnimator.Death();
+        }
+        public void SubscribeToSwipes()
+        {
+            SwipeInputHandler.Singleton.OnHorizontalSwipDetected += OnSwipe;
+            SwipeInputHandler.Singleton.OnTap += Jump;
         }
         private void OnSwipe(Swipe swipe)
         {
@@ -115,5 +144,10 @@ namespace EndlessRunner
         {
             // Nothing for now 
         }
+        private void Jump()
+        {
+            characterAnimator.Jump();
+        }
+
     }
 }

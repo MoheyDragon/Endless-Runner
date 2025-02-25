@@ -7,6 +7,8 @@ namespace EndlessRunner
         const string moveSpeedParameter = "Moving";
         const string animationSpeedParameter = "AnimationSpeed";
         const string jumpParameter = "Jumping";
+        const string deathParameter = "Death";
+
         private void Start()
         {
             animator = GetComponent<Animator>();
@@ -23,6 +25,11 @@ namespace EndlessRunner
         public void Land()
         {
             animator.SetBool(jumpParameter, false);
+        }
+        public void Death()
+        {
+            StartRunning(false);
+            animator.SetTrigger(deathParameter);
         }
         private void Update()
         {

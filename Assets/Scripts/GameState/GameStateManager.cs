@@ -6,6 +6,7 @@ namespace EndlessRunner
     public class GameStateManager : Singletons<GameStateManager>
     {
         GameState currentGameState;
+        [SerializeField] CharacterMovementController character;
         private void Start()
         {
             currentGameState = GameState.MAINMENU;
@@ -13,6 +14,7 @@ namespace EndlessRunner
         }
         public void SetState(GameState state)
         {
+            currentGameState = state;
             switch (currentGameState)
             {
                 case GameState.MAINMENU:
@@ -20,6 +22,7 @@ namespace EndlessRunner
                 case GameState.GAME:
                     break;
                 case GameState.END:
+                    OnMatchEnd();
                     break;
             }
         }
@@ -35,6 +38,7 @@ namespace EndlessRunner
         public void OnMatchEnd()
         {
             SwipeInputHandler.Singleton.enabled = false;
+            character.OnGameEnd();
         }
     }
 }

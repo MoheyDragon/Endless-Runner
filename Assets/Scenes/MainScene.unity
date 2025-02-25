@@ -321,13 +321,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792b5e569c6adf34d86650ed6c5abeab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 1693839962}
   chunksPoolData:
     prefabs:
     - {fileID: 2526008161542486002, guid: bf2bd2293a17042458f63411ab6e4d00, type: 3}
     poolParent: {fileID: 1080091546}
     defaultCapacity: 7
     maxCapacity: 10
+  character: {fileID: 1693839962}
   chunkLength: 50
   startingSpawnPosition: {x: 0, y: 0.2, z: 14.8}
 --- !u!1 &230047954
@@ -1393,6 +1393,12 @@ PrefabInstance:
       addedObject: {fileID: 1693839962}
     - targetCorrespondingSourceObject: {fileID: 1689387058552014909, guid: 3f534b63cf7aac64b9c0a4ee0c906eb1, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1693839968}
+    - targetCorrespondingSourceObject: {fileID: 1689387058552014909, guid: 3f534b63cf7aac64b9c0a4ee0c906eb1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1693839967}
+    - targetCorrespondingSourceObject: {fileID: 1689387058552014909, guid: 3f534b63cf7aac64b9c0a4ee0c906eb1, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1693839965}
     - targetCorrespondingSourceObject: {fileID: 1689387058552014909, guid: 3f534b63cf7aac64b9c0a4ee0c906eb1, type: 3}
       insertIndex: -1
@@ -1442,6 +1448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbf95dd808721b40b3eb1b36f67c268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 1693839962}
 --- !u!1 &1693839960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1689387058552014909, guid: 3f534b63cf7aac64b9c0a4ee0c906eb1, type: 3}
@@ -1468,6 +1475,8 @@ MonoBehaviour:
   lanesCounts: 3
   speed: 0.2
   slideSpeed: 3
+  recoveryTime: 0.5
+  pushbackDistance: 5
 --- !u!114 &1693839963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1550,6 +1559,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 1.5, z: 0.5}
   m_Center: {x: 0, y: 0.78, z: 0}
+--- !u!114 &1693839967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693839960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2af7c0c33edb2ef4396b10485c81cd06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+--- !u!114 &1693839968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693839960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe108791bc5cabe498742a6f8f36caa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1704240540
 GameObject:
   m_ObjectHideFlags: 0

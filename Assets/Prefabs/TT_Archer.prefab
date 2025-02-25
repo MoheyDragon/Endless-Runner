@@ -14287,6 +14287,7 @@ GameObject:
   - component: {fileID: 494462}
   - component: {fileID: 9563318}
   - component: {fileID: -52474489873420993}
+  - component: {fileID: 6692567360602754334}
   m_Layer: 0
   m_Name: TT_Archer
   m_TagString: Untagged
@@ -14405,6 +14406,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde1d3c89c2136d4a9551a76e7bfde6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 1
+--- !u!65 &6692567360602754334
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179124}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.25, y: 1.52, z: 0.72}
+  m_Center: {x: -0.0000001960132, y: 0.8, z: 0.01}
 --- !u!1 &179126
 GameObject:
   m_ObjectHideFlags: 0
