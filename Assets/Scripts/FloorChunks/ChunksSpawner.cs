@@ -1,31 +1,26 @@
 using UnityEngine;
-using UnityEngine.Pool;
+using MoheyPoolingSystem;
 namespace EndlessRunner
 {
     public class ChunksSpawner : Singletons<ChunksSpawner>
     {
-        [SerializeField] CharacterMovementController character;
+        [SerializeField] PoolingData<Chunk> chunksPoolData;
         PoolingManager<Chunk> chunksPool;
-        [Header("Pooling")]
         [Space]
-        [SerializeField] Chunk prefab;
-        [SerializeField] Transform poolParent;
-        [SerializeField] int defaultCapacity;
-        [SerializeField] int maxCapacity;
-        [Space]
+        [SerializeField] CharacterMovementController character;
         [Header("SpawnPositions")]
         [Space]
         [SerializeField] float chunkLength;
         [SerializeField] Vector3 startingSpawnPosition;
         private void Start()
         {
-            chunksPool = new PoolingManager<Chunk>(prefab, poolParent, defaultCapacity, maxCapacity);
+            chunksPool = new PoolingManager<Chunk>(chunksPoolData);
             SpawnInitalChuncks();
         }
         
         public void SpawnInitalChuncks()
         {
-            for (int i = 0; i < defaultCapacity; i++)
+            for (int i = 0; i < chunksPoolData.defaultCapacity; i++)
                 SpawnInitialChuncks(i);
         }
         public void SpawnInitialChuncks(int i)

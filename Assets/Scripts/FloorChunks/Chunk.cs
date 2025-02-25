@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 namespace EndlessRunner
 {
@@ -5,7 +6,6 @@ namespace EndlessRunner
     public class Chunk : MonoBehaviour,IPoolable
     {
         ChunkMovement chunkMovement;
-        [SerializeField] GameObject testPrefab;
         [SerializeField] bool isDebugging;
         [SerializeField] Transform spawnPointsParent;
         [SerializeField] Vector2 spawnXRange;
@@ -50,22 +50,20 @@ namespace EndlessRunner
                     spawnPoint.transform.localScale = Vector3.one;
 
                     spawners[directionIndex, lineIndex] = spawnPoint.transform;
-
-                    GameObject test= Instantiate(testPrefab);
-                    test.transform.SetParent(spawnPoint.transform);
-                    test.transform.localPosition = Vector3.zero;
-
                 }
             }
         }
 
         // IPoolable Functions
+        List<Obstacle> currentObstacles=new List<Obstacle>();
         public void OnGet()
         {
+            currentObstacles= ObstaclesManager.Singleton.HandleObstaclesSpawn(spawners);
         }
 
         public void OnRelease()
         {
+            ObstaclesManager.Singleton.HandleObstaclesRelease(currentObstacles);
         }
 
         public void OnDestroy()

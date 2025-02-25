@@ -1,48 +1,45 @@
-using EndlessRunner;
 using UnityEngine;
 using UnityEngine.Pool;
-public class PoolingManager<T> where T : MonoBehaviour, IPoolable
+namespace MoheyPoolingSystem
 {
-    public ObjectPool<T> pool;
-    private T prefab;
-    private Transform poolParent;
-    private int defaultCapacity;
-    private int maxCapacity;
+    public class PoolingManager<T> where T : MonoBehaviour, IPoolable
+    {
+        public ObjectPool<T> pool;
+        PoolingData<T> poolingData;
 
-    public PoolingManager(T prefab, Transform parent, int defaultCapacity, int maxCapacity)
-    {
-        this.prefab = prefab;
-        this.poolParent = parent;
-        this.defaultCapacity = defaultCapacity;
-        this.maxCapacity = maxCapacity;
-        InitiatePool();
-    }
+        public PoolingManager(PoolingData<T> newData)
+        {
+            poolingData.prefabs = newData.prefabs;
+            poolingData.poolParent = newData.poolParent;
+            poolingData.defaultCapacity = newData.defaultCapacity;
+            poolingData.maxCapacity = newData.maxCapacity;
+            InitiatePool();
+        }
 
-    private void InitiatePool()
-    {
-        pool = new ObjectPool<T>(CreateNewObject, GetObject, ReleaseObject, DestroyObject, false, defaultCapacity, maxCapacity);
-    }
+        private void InitiatePool()
+        {
+            pool = new ObjectPool<T>(CreateNewObject, GetObject, ReleaseObject, DestroyObject, false, poolingData.defaultCapacity, poolingData.maxCapacity);
+        }
 
-    private T CreateNewObject()
-    {
-        T newObj = Object.Instantiate(prefab, poolParent);
-        return newObj;
-    }
-    private void GetObject(T obj)
-    {
-        obj.gameObject.SetActive(true);
-        obj.OnGet();
-    }
-    private void ReleaseObject(T obj)
-    {
-        obj.OnRelease();
-        obj.gameObject.SetActive(false);
-    }
-    private void DestroyObject(T obj)
-    {
-        obj.OnDestroy();
-        Object.Destroy(obj.gameObject);
+        private T CreateNewObject()
+        {
+            T newObj = Object.Instantiate(poolingData.prefabs[Random.Range(0, poolingData.prefabs.Length)], poolingData.poolParent);
+            return newObj;
+        }
+        private void GetObject(T obj)
+        {
+            obj.gameObject.SetActive(true);
+            obj.OnGet();
+        }
+        private void ReleaseObject(T obj)
+        {
+            obj.OnRelease();
+            obj.gameObject.SetActive(false);
+        }
+        private void DestroyObject(T obj)
+        {
+            obj.OnDestroy();
+            Object.Destroy(obj.gameObject);
+        }
     }
 }
-
-
