@@ -21,6 +21,13 @@ namespace EndlessRunner
         [Space]
         [SerializeField] private float recoveryTime = 0.5f; 
         [SerializeField] private float pushbackDistance = 5;
+        [Space]
+        [Header("Jump")]
+        [Space]
+        [SerializeField] Transform groundChecker;
+        [SerializeField] float jumpPower = 10;
+        [SerializeField] LayerMask groundMask;
+        [SerializeField] float groundCheckDistance;
         private float laneChangeDuration=0.5f;
         private bool isSliding;
         private bool isGameRunning;
@@ -35,6 +42,11 @@ namespace EndlessRunner
             SetupLanesPositions();
             SubscribeToSwipes();
             isGameRunning = true;
+        }
+        private void Update()
+        {
+            if (!isGameRunning) return;
+            characterAnimator.Jump(IsGrounded());
         }
         private void SetupLanesPositions()
         {
@@ -86,7 +98,7 @@ namespace EndlessRunner
         public void SubscribeToSwipes()
         {
             SwipeInputHandler.Singleton.OnHorizontalSwipDetected += OnSwipe;
-            SwipeInputHandler.Singleton.OnTap += Jump;
+            SwipeInputHandler.Singleton.OnTap += OnJumpInput;
         }
         private void OnSwipe(Swipe swipe)
         {
@@ -144,9 +156,22 @@ namespace EndlessRunner
         {
             // Nothing for now 
         }
+        private void OnJumpInput()
+        {
+            print("On Jump Input");
+            if(IsGrounded())
+            {
+                Jump();
+            }
+        }
         private void Jump()
         {
-            characterAnimator.Jump();
+            print("On Jump");
+            rb.AddForce(Vector3.up*jumpPower,ForceMode.VelocityChange);
+        }
+        private bool IsGrounded()
+        {
+            return Physics.Raycast(groundChecker.position,Vector3.down, groundCheckDistance, groundMask);
         }
 
     }

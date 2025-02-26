@@ -6,7 +6,7 @@ namespace EndlessRunner
         Animator animator;
         const string moveSpeedParameter = "Moving";
         const string animationSpeedParameter = "AnimationSpeed";
-        const string jumpParameter = "Jumping";
+        const string isGroundedParameter = "IsGrounded";
         const string deathParameter = "Death";
 
         private void Start()
@@ -18,13 +18,9 @@ namespace EndlessRunner
         {
             animator.SetBool(moveSpeedParameter, enabled);
         }
-        public void Jump()
+        public void Jump(bool isGounded)
         {
-            animator.SetBool(jumpParameter, true);
-        }
-        public void Land()
-        {
-            animator.SetBool(jumpParameter, false);
+            animator.SetBool(isGroundedParameter, isGounded);
         }
         public void Death()
         {
