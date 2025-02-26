@@ -8,23 +8,35 @@ namespace EndlessRunner
     {
         PoolingManager<Obstacle> obstaclesPool;
         [SerializeField] PoolingData<Obstacle> obstaclesPoolData;
-        void Start()
+        [SerializeField] DifficultySpawnPatterns[] difficultySpawnPatterns;
+        private int difficultyLevel;
+        protected override void Awake()
         {
+            base.Awake();
             obstaclesPool = new PoolingManager<Obstacle>(obstaclesPoolData);
         }
-        int deleteMe;
-        public List<Obstacle> HandleObstaclesSpawn(Transform[,]spawners)
+        public void IncreaseSpawnRate()
         {
-            List<Obstacle> chunkObstacles=new List<Obstacle>();
-            for (int i = 0; i < spawners.GetLength(1); i++)
+            difficultyLevel++;
+            if (difficultyLevel == difficultySpawnPatterns.Length)
+                difficultyLevel = difficultySpawnPatterns.Length;
+        }
+        public List<Obstacle> HandleObstaclesSpawn(Transform[,] spawners)
+        {
+            List<Obstacle> chunkObstacles = new List<Obstacle>();
+
+            SpawnPattern spawnPattern = difficultySpawnPatterns[difficultyLevel].spawnFormulas
+                [Random.Range(0, difficultySpawnPatterns[difficultyLevel].spawnFormulas.Length)];
+            foreach(DirectionSpawnPoints direction in spawnPattern.DirectionSpawnPoints)
             {
-                Obstacle newObstacle = obstaclesPool.pool.Get();
-                newObstacle.transform.SetParent(spawners[deleteMe,i]);
-                newObstacle.transform.localPosition = Vector3.zero;
-                chunkObstacles.Add(newObstacle);
+                foreach (int position in direction.Positions)
+                {
+                    Obstacle newObstacle = obstaclesPool.pool.Get();
+                    newObstacle.transform.SetParent(spawners[direction.directionIndex, position]);
+                    newObstacle.transform.localPosition = Vector3.zero;
+                    chunkObstacles.Add(newObstacle);
+                }
             }
-            deleteMe++;
-            if(deleteMe==spawners.GetLength(0))deleteMe=0;
             return chunkObstacles;
         }
         public void HandleObstaclesRelease(List<Obstacle> chunkObstacles)
@@ -32,6 +44,5 @@ namespace EndlessRunner
             foreach (var obstacle in chunkObstacles)
                 obstaclesPool.pool.Release(obstacle);
         }
-
     }
 }

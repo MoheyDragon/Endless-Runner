@@ -2043,8 +2043,13 @@ MonoBehaviour:
     prefabs:
     - {fileID: -52474489873420993, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
     poolParent: {fileID: 1768622478}
-    defaultCapacity: 25
-    maxCapacity: 100
+    defaultCapacity: 10
+    maxCapacity: 50
+  difficultySpawnPatterns:
+  - spawnFormulas:
+    - {fileID: 11400000, guid: 3923184ba1d78fc46b62b3c4c136803c, type: 2}
+    - {fileID: 11400000, guid: 3923184ba1d78fc46b62b3c4c136803c, type: 2}
+    - {fileID: 11400000, guid: 7bfda7135ce8bed4090a405c40e875a4, type: 2}
 --- !u!1 &2123265801
 GameObject:
   m_ObjectHideFlags: 0
