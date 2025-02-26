@@ -8,6 +8,7 @@ namespace EndlessRunner
         const string animationSpeedParameter = "AnimationSpeed";
         const string isGroundedParameter = "IsGrounded";
         const string deathParameter = "Death";
+        const string directionParameter = "Direction";
 
         private void Start()
         {
@@ -17,6 +18,11 @@ namespace EndlessRunner
         public void StartRunning(bool enabled=true)
         {
             animator.SetBool(moveSpeedParameter, enabled);
+            animator.SetFloat(directionParameter, 0);
+        }
+        public void SetDirection(float direction)
+        {
+            animator.SetFloat(directionParameter, direction);
         }
         public void Jump(bool isGounded)
         {

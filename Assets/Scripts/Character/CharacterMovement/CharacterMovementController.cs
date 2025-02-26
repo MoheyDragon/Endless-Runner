@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using MoheySwipeSystem;
+using UnityEditor.Experimental.GraphView;
 namespace EndlessRunner
 {
     public class CharacterMovementController : MonoBehaviour
@@ -130,15 +131,15 @@ namespace EndlessRunner
             if (targetLane < 0 || targetLane >= lanesXPos.Length) return;
 
             currentLane = targetLane;
-            StartCoroutine(SmoothMove(lanesXPos[currentLane]));
+            StartCoroutine(SmoothMove(lanesXPos[currentLane],direction));
         }
-        private IEnumerator SmoothMove(float targetX)
+        private IEnumerator SmoothMove(float targetX,SwipeDirection direction)
         {
             isGameRunning = true;
             float elapsedTime = 0f;
             Vector3 startPosition = rb.position;
             Vector3 targetPosition = new Vector3(targetX, startPosition.y, startPosition.z);
-
+            characterAnimator.SetDirection(direction == SwipeDirection.RIGHT ? 1 : -1);
             float duration = laneChangeDuration / slideSpeed; 
 
             while (elapsedTime < duration)
@@ -151,6 +152,7 @@ namespace EndlessRunner
 
             rb.MovePosition(targetPosition);
             isSliding = false;
+            characterAnimator.SetDirection(0);
         }
         private void HandleOutOfBoundriesSwipe(SwipeDirection direction)
         {
@@ -158,15 +160,11 @@ namespace EndlessRunner
         }
         private void OnJumpInput()
         {
-            print("On Jump Input");
             if(IsGrounded())
-            {
                 Jump();
-            }
         }
         private void Jump()
         {
-            print("On Jump");
             rb.AddForce(Vector3.up*jumpPower,ForceMode.VelocityChange);
         }
         private bool IsGrounded()
