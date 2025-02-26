@@ -15,6 +15,10 @@ namespace EndlessRunner
             animator = GetComponent<Animator>();
             StartRunning();
         }
+        public void OnStep()
+        {
+            SoundsManager.Singleton.FootStepSound(transform.position);
+        }
         public void StartRunning(bool enabled=true)
         {
             animator.SetBool(moveSpeedParameter, enabled);

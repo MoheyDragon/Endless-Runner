@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &205571004045036900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5791942413050347361}
+  m_Layer: 0
+  m_Name: OtherSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5791942413050347361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205571004045036900}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1430792961425796492}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2895021459663311243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5676171315007148862}
+  m_Layer: 0
+  m_Name: MusicSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5676171315007148862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2895021459663311243}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1430792961425796492}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3527923110774807033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1430792961425796492}
+  - component: {fileID: 4114659221160731209}
+  - component: {fileID: 3105147520137408084}
+  m_Layer: 0
+  m_Name: SoundsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1430792961425796492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3527923110774807033}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.4004326, y: -10.425859, z: 47.171597}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5676171315007148862}
+  - {fileID: 5791942413050347361}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &4114659221160731209
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3527923110774807033}
+  m_Enabled: 1
+--- !u!114 &3105147520137408084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3527923110774807033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507339e971840444687fb5b6b5eadf62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPrefab: {fileID: 3071495438087110112, guid: 25a1ac78c26296743a7d6eca4a89ff1c, type: 3}
+  musicPrefab: {fileID: 3071495438087110112, guid: 873f35f2bc0fe55438c5543395e1a85f, type: 3}
+  soundsParent: {fileID: 5791942413050347361}
+  musicParent: {fileID: 5676171315007148862}
+  maximumAudioSourcePlaying: 100
+  pitchRandom: {x: 0.9, y: 1.1}
+  musicLayers: 15
+  masterAMG: {fileID: 24300002, guid: 9acc9693d1a6dd94085229fa33c203d4, type: 2}
+  musicAMG: {fileID: 4934512739285099281, guid: 9acc9693d1a6dd94085229fa33c203d4, type: 2}
+  sfxAMG: {fileID: -7852885014727413626, guid: 9acc9693d1a6dd94085229fa33c203d4, type: 2}
+  footStepsAMG: {fileID: 5106522249741784013, guid: 9acc9693d1a6dd94085229fa33c203d4, type: 2}
+  mainMusic: {fileID: 8300000, guid: 45b89daa58e920a42a5c4246ca631db8, type: 3}
+  intenseMusic: {fileID: 0}
+  soundsSurfaces:
+  - name: Dirt
+    sounds:
+    - {fileID: 8300000, guid: 9a78b66d7e510844db9c109678dc3de7, type: 3}
+    - {fileID: 8300000, guid: 89642fe5455198e489e9ad8487cbb9ff, type: 3}
+    - {fileID: 8300000, guid: 2e6a585837a2c434299e7340de4a509a, type: 3}
+    - {fileID: 8300000, guid: ea68cb5a3eda1e74b86559b81490cc74, type: 3}
+  selectCharacter:
+  - {fileID: 8300000, guid: 069596428ee2c064c85bcfda6de8183e, type: 3}
+  - {fileID: 8300000, guid: 22025d92d774b7749a55c46e90b32289, type: 3}
+  - {fileID: 8300000, guid: bbdc0b2f8aa63044d983e668caf2d1fc, type: 3}
+  - {fileID: 8300000, guid: ff343f9ea3c82df4b97818797926f6ee, type: 3}
+  actionNotPossibleSounds:
+  - {fileID: 8300000, guid: c5e61ed0e213a394f92ff4b4efa83906, type: 3}
+  showInteractionIconSounds:
+  - {fileID: 8300000, guid: c42ddb964e406e7489e20895684e1958, type: 3}

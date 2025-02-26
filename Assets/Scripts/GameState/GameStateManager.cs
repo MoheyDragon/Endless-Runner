@@ -9,7 +9,7 @@ namespace EndlessRunner
         [SerializeField] CharacterMovementController character;
         private void Start()
         {
-            currentGameState = GameState.MAINMENU;
+            currentGameState = GameState.GAME;
             SetState(currentGameState);
         }
         public void SetState(GameState state)
@@ -20,6 +20,7 @@ namespace EndlessRunner
                 case GameState.MAINMENU:
                     break;
                 case GameState.GAME:
+                    OnMatchStart();
                     break;
                 case GameState.END:
                     OnMatchEnd();
@@ -34,6 +35,7 @@ namespace EndlessRunner
         public void OnMatchStart()
         {
             SwipeInputHandler.Singleton.enabled = true;
+            SoundsManager.Singleton.StartMusic();
         }
         public void OnMatchEnd()
         {
