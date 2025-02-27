@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 namespace EndlessRunner
 {
     public class CharacterHealthSystem : MonoBehaviour
@@ -16,6 +17,7 @@ namespace EndlessRunner
         }
         public void OnHit(int damage)
         {
+            SoundsManager.Singleton.OnHit();
             health-=damage;
             if (health <= 0)
                 Death();
@@ -24,6 +26,7 @@ namespace EndlessRunner
         }
         public void Death()
         {
+            SoundsManager.Singleton.OnDeath();
             GameStateManager.Singleton.SetState(GameState.END);
         }
     }

@@ -1,4 +1,4 @@
 ﻿namespace EndlessRunner
 {
-    public enum GameState { MAINMENU, GAME, END }
+    public enum GameState { START, GAME, END }
 }

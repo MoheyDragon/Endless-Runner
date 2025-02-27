@@ -9,15 +9,18 @@ namespace EndlessRunner
         const string isGroundedParameter = "IsGrounded";
         const string deathParameter = "Death";
         const string directionParameter = "Direction";
-
         private void Start()
         {
             animator = GetComponent<Animator>();
-            StartRunning();
         }
+        // Animation events Receviers
         public void OnStep()
         {
-            SoundsManager.Singleton.FootStepSound(transform.position);
+            SoundsManager.Singleton.OnFootStep();
+        }
+        public void OnLand()
+        {
+            SoundsManager.Singleton.OnFootStep();
         }
         public void StartRunning(bool enabled=true)
         {

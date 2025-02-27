@@ -1,6 +1,5 @@
 using UnityEngine;
 using MoheySwipeSystem;
-using UnityEngine.Events;
 namespace EndlessRunner
 {
     public class GameStateManager : Singletons<GameStateManager>
@@ -10,14 +9,19 @@ namespace EndlessRunner
         private void Start()
         {
             currentGameState = GameState.GAME;
-            SetState(currentGameState);
+            SetState(GameState.START);
+        }
+        public void SetState(int state)
+        {
+            SetState((GameState)state);
         }
         public void SetState(GameState state)
         {
             currentGameState = state;
             switch (currentGameState)
             {
-                case GameState.MAINMENU:
+                case GameState.START:
+                    EnterMainMenu();
                     break;
                 case GameState.GAME:
                     OnMatchStart();
@@ -26,20 +30,22 @@ namespace EndlessRunner
                     OnMatchEnd();
                     break;
             }
+            UIManager.Singleton.SwitchToPage((int)state);
         }
         private void EnterMainMenu()
         {
             SwipeInputHandler.Singleton.enabled = false;
-            CharacterSelector.Singleton.enabled = true;
         }
         public void OnMatchStart()
         {
             SwipeInputHandler.Singleton.enabled = true;
-            SoundsManager.Singleton.StartMusic();
+            character.OnMatchBegan();
+            SoundsManager.Singleton.PlayMusic();
         }
         public void OnMatchEnd()
         {
             SwipeInputHandler.Singleton.enabled = false;
+            SoundsManager.Singleton.StopMusic();
             character.OnGameEnd();
         }
     }

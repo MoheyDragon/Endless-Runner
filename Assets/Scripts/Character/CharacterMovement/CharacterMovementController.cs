@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using MoheySwipeSystem;
-using UnityEditor.Experimental.GraphView;
+using UnityEngine.Audio;
 namespace EndlessRunner
 {
     public class CharacterMovementController : MonoBehaviour
     {
-        CharacterAnimator characterAnimator;
+        CharacterAnimator animator;
         private Rigidbody rb;
 
         [SerializeField] Vector2 movementAreaBoundaries;
@@ -35,19 +35,23 @@ namespace EndlessRunner
         public bool IsGameRunning => isGameRunning;
         private void Awake()
         {
-            characterAnimator = GetComponent<CharacterAnimator>();
+            animator = GetComponent<CharacterAnimator>();
             rb = GetComponent<Rigidbody>();
         }
         private void Start()
         {
             SetupLanesPositions();
             SubscribeToSwipes();
+        }
+        public void OnMatchBegan()
+        {
             isGameRunning = true;
+            animator.StartRunning();
         }
         private void Update()
         {
             if (!isGameRunning) return;
-            characterAnimator.Jump(IsGrounded());
+            animator.Jump(IsGrounded());
         }
         private void SetupLanesPositions()
         {
@@ -94,7 +98,7 @@ namespace EndlessRunner
         public void OnGameEnd()
         {
             isGameRunning = false;
-            characterAnimator.Death();
+            animator.Death();
         }
         public void SubscribeToSwipes()
         {
@@ -125,7 +129,6 @@ namespace EndlessRunner
         private void Move(SwipeDirection direction)
         {
             if (isSliding) return;
-
             int targetLane = currentLane + (direction == SwipeDirection.RIGHT ? 1 : -1);
 
             if (targetLane < 0 || targetLane >= lanesXPos.Length) return;
@@ -135,11 +138,11 @@ namespace EndlessRunner
         }
         private IEnumerator SmoothMove(float targetX,SwipeDirection direction)
         {
-            isGameRunning = true;
+            SoundsManager.Singleton.Woosh();
             float elapsedTime = 0f;
             Vector3 startPosition = rb.position;
             Vector3 targetPosition = new Vector3(targetX, startPosition.y, startPosition.z);
-            characterAnimator.SetDirection(direction == SwipeDirection.RIGHT ? 1 : -1);
+            animator.SetDirection(direction == SwipeDirection.RIGHT ? 1 : -1);
             float duration = laneChangeDuration / slideSpeed; 
 
             while (elapsedTime < duration)
@@ -152,7 +155,7 @@ namespace EndlessRunner
 
             rb.MovePosition(targetPosition);
             isSliding = false;
-            characterAnimator.SetDirection(0);
+            animator.SetDirection(0);
         }
         private void HandleOutOfBoundriesSwipe(SwipeDirection direction)
         {
@@ -165,6 +168,7 @@ namespace EndlessRunner
         }
         private void Jump()
         {
+            SoundsManager.Singleton.Woosh();
             rb.AddForce(Vector3.up*jumpPower,ForceMode.VelocityChange);
         }
         private bool IsGrounded()

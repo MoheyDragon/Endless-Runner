@@ -1,59 +1,53 @@
 using UnityEngine;
-using UnityEngine.Audio;
-public class SoundsManager : GlobalSoundsManager
+using MoheyGeneralMethods;
+using UnityEngineInternal;
+namespace EndlessRunner
 {
-    [Header("Audio Mixer Group")]
-    [Space]
-    [SerializeField] AudioMixerGroup masterAMG;
-    [SerializeField] AudioMixerGroup musicAMG;
-    [SerializeField] AudioMixerGroup sfxAMG;
-    [SerializeField] AudioMixerGroup footStepsAMG;
-    [Space]
-    [Header("Music")]
-    [SerializeField] AudioClip mainMusic;
-    [SerializeField] AudioClip intenseMusic;
-    [Space]
-    [Space]
-    [Header("General Sounds")]
-    [SerializeField] SoundsSurfaceFootSteps[] soundsSurfaces;
-    [SerializeField] AudioClip[] selectCharacter;
-    [SerializeField] AudioClip[] actionNotPossibleSounds;
-    [SerializeField] AudioClip[] showInteractionIconSounds;
-    [Space]
-    public static new SoundsManager Singleton;
-    SoundsSurfaceFootSteps currentSoundsSurface;
-    protected override void Awake()
+    public class SoundsManager : Singletons<SoundsManager>
     {
-        base.Awake();
-        Singleton = this;
-        currentSoundsSurface=soundsSurfaces[0];
-    }
-    public void StartMusic()
-    {
-        PlayMusic(mainMusic);
-    }
-    public void MuteMusic()
-    {
-        musicAMG.audioMixer.SetFloat("MusicVolume", -40);
-    }
-    public void ChangeSoundsSurface(SoundsSurfaceFootSteps newSurface)
-    {
-        currentSoundsSurface = newSurface;
-    }
-    public void FootStepSound(Vector3 position)
-    {
-        PlayRandomSound(currentSoundsSurface.sounds, footStepsAMG);
-    }
-    public void SelectCharacter()
-    {
-        PlayRandomSound(selectCharacter, sfxAMG);
-    }
-    public void ShowInteractionIcon()
-    {
-        PlayRandomSound(showInteractionIconSounds, sfxAMG);
-    }
-    public void ActionNotPossible()
-    {
-        PlayRandomSound(actionNotPossibleSounds, sfxAMG);
+        [SerializeField] AudioSource music;
+        [SerializeField] AudioSource whooshSound;
+        [SerializeField] AudioSource death;
+        [SerializeField] Transform footstepsParent;
+        [SerializeField] Transform hitSoundsParent;
+        [SerializeField] Vector2 pitchRandom;
+        AudioSource[] hitSounds;
+        AudioSource[] footsteps;
+        private void Start()
+        {
+            footsteps=GeneralMethods.PopulateArrayFromParent<AudioSource>(footstepsParent);
+            hitSounds = GeneralMethods.PopulateArrayFromParent<AudioSource>(hitSoundsParent);
+        }
+        public void PlayMusic()
+        {
+            music.Play();
+        }
+        public void StopMusic()
+        {
+            music.Stop();
+        }
+        public void Woosh()
+        {
+            whooshSound.Play();
+        }
+        public void OnFootStep()
+        {
+            PlayRandomSound(footsteps);
+        }
+        public void OnHit()
+        {
+            hitSounds[Random.Range(0, hitSounds.Length)].Play();
+        }
+        public void OnDeath()
+        {
+            death.Play();
+        }
+        private void PlayRandomSound(AudioSource[] sounds)
+        {
+            int random = Random.Range(0, footsteps.Length);
+            sounds[random].Play();
+            sounds[random].pitch = Random.Range(pitchRandom.x, pitchRandom.y);
+        }
+        
     }
 }
