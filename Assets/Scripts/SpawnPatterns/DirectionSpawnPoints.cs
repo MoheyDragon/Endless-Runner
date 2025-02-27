@@ -4,6 +4,7 @@
     public struct DirectionSpawnPoints
     {
         public int directionIndex;
-        public int[] Positions;
+        public int[] ObstaclesPositions;
+        public int[] CollectablesPositions;
     }
 }

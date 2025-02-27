@@ -6,7 +6,6 @@ namespace EndlessRunner
     public class Chunk : MonoBehaviour,IPoolable
     {
         ChunkMovement chunkMovement;
-        [SerializeField] bool isDebugging;
         [SerializeField] Transform spawnPointsParent;
         [SerializeField] Vector2 spawnXRange;
         [SerializeField] Vector2 spawnZRange;
@@ -19,17 +18,9 @@ namespace EndlessRunner
             chunkMovement = GetComponent<ChunkMovement>();
             AssignSpawnPoints();
         }
-        void Start()
-        {
-            chunkMovement.enabled = isDebugging;
-        }
         public void SetCharacterMovement(CharacterMovementController character)
         {
             chunkMovement.SetCharacterMovementController(character);
-        }
-        public void Clear()
-        {
-
         }
         public void AssignSpawnPoints()
         {
@@ -55,15 +46,15 @@ namespace EndlessRunner
         }
 
         // IPoolable Functions
-        List<Obstacle> currentObstacles=new List<Obstacle>();
+        ChunkObjects currentObjects;
         public void OnGet()
         {
-            currentObstacles= ObstaclesManager.Singleton.HandleObstaclesSpawn(spawners);
+            currentObjects= ObjetsSpawnerManager.Singleton.HandleObstaclesSpawn(spawners);
         }
 
         public void OnRelease()
         {
-            ObstaclesManager.Singleton.HandleObstaclesRelease(currentObstacles);
+            ObjetsSpawnerManager.Singleton.HandleObstaclesRelease(currentObjects);
         }
 
         public void OnDestroy()

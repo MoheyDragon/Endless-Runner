@@ -1,5 +1,6 @@
 using UnityEngine;
 using MoheySwipeSystem;
+using UnityEngine.SceneManagement;
 namespace EndlessRunner
 {
     public class GameStateManager : Singletons<GameStateManager>
@@ -47,6 +48,10 @@ namespace EndlessRunner
             SwipeInputHandler.Singleton.enabled = false;
             SoundsManager.Singleton.StopMusic();
             character.OnGameEnd();
+        }
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }

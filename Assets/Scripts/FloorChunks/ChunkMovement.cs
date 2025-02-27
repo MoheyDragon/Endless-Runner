@@ -28,15 +28,9 @@ namespace EndlessRunner
                 transform.Translate(moveVector);
                 if (transform.position.z < endPos)
                 {
-                    Clear();
                     ChunksSpawner.Singleton.SpawnChunk(chunk);
                 }
             }
         }
-        public void Clear()
-        {
-            chunk.Clear();
-        }
-
     }
 }

@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65f8d902dcc0834488a0367b8ae8c81c, type: 3}
-  m_Name: easySpawnPattern3
+  m_Name: mediumSpawnPattern2
   m_EditorClassIdentifier: 
   DirectionSpawnPoints:
+  - directionIndex: 2
+    ObstaclesPositions: 0300000004000000
+    CollectablesPositions: 0000000001000000
+  - directionIndex: 1
+    ObstaclesPositions: 0000000001000000
+    CollectablesPositions: 0200000003000000
   - directionIndex: 0
     ObstaclesPositions: 
-    CollectablesPositions: 00000000020000000400000005000000
-  - directionIndex: 2
-    ObstaclesPositions: 
-    CollectablesPositions: 00000000020000000400000005000000
+    CollectablesPositions: 0400000005000000

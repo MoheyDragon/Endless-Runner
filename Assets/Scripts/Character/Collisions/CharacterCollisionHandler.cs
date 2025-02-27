@@ -4,7 +4,6 @@ namespace EndlessRunner
     public class CharacterCollisionHandler : MonoBehaviour
     {
         CharacterHealthSystem healthSystem;
-        [SerializeField] AudioClip[] collectingSounds;
         private void Awake()
         {
             healthSystem = GetComponent<CharacterHealthSystem>();

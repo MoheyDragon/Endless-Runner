@@ -8,15 +8,22 @@ namespace EndlessRunner
         [SerializeField] AudioSource music;
         [SerializeField] AudioSource whooshSound;
         [SerializeField] AudioSource death;
+
+        [Space]
+
         [SerializeField] Transform footstepsParent;
         [SerializeField] Transform hitSoundsParent;
+        [SerializeField] Transform collectingSoundsParent;
         [SerializeField] Vector2 pitchRandom;
+
         AudioSource[] hitSounds;
         AudioSource[] footsteps;
+        AudioSource[] collectingSounds;
         private void Start()
         {
             footsteps=GeneralMethods.PopulateArrayFromParent<AudioSource>(footstepsParent);
             hitSounds = GeneralMethods.PopulateArrayFromParent<AudioSource>(hitSoundsParent);
+            collectingSounds=GeneralMethods.PopulateArrayFromParent<AudioSource>(collectingSoundsParent);
         }
         public void PlayMusic()
         {
@@ -29,6 +36,10 @@ namespace EndlessRunner
         public void Woosh()
         {
             whooshSound.Play();
+        }
+        public void OnCollecting()
+        {
+            PlayRandomSound(collectingSounds);
         }
         public void OnFootStep()
         {
@@ -44,7 +55,7 @@ namespace EndlessRunner
         }
         private void PlayRandomSound(AudioSource[] sounds)
         {
-            int random = Random.Range(0, footsteps.Length);
+            int random = Random.Range(0, sounds.Length);
             sounds[random].Play();
             sounds[random].pitch = Random.Range(pitchRandom.x, pitchRandom.y);
         }
