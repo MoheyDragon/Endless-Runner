@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace EndlessRunner
 {
     public class ChunkMovement : MonoBehaviour
     {
+        public static Action OnChunkReachedEnd;
         [SerializeField] private float endPos;
         Vector3 moveVector;
 
@@ -28,6 +30,7 @@ namespace EndlessRunner
                 transform.Translate(moveVector);
                 if (transform.position.z < endPos)
                 {
+                    OnChunkReachedEnd?.Invoke();
                     ChunksSpawner.Singleton.SpawnChunk(chunk);
                 }
             }

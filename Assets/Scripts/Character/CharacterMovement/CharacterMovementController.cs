@@ -15,6 +15,7 @@ namespace EndlessRunner
         int currentLane;
 
         [Space]
+        [SerializeField] float[] levelSpeeds;
         [SerializeField] float speed;
         [SerializeField] float slideSpeed;
         public float Speed => speed;
@@ -41,7 +42,7 @@ namespace EndlessRunner
         private void Start()
         {
             SetupLanesPositions();
-            SubscribeToSwipes();
+            Subscribe();
         }
         public void OnMatchBegan()
         {
@@ -81,7 +82,7 @@ namespace EndlessRunner
             isRecovering = true;
             float elapsedTime = 0f;
             float originalSpeed = speed;
-            float targetSpeed = -originalSpeed * pushbackDistance; 
+            float targetSpeed = -levelSpeeds[0] * pushbackDistance; 
 
             while (elapsedTime < recoveryTime)
             {
@@ -100,10 +101,11 @@ namespace EndlessRunner
             isGameRunning = false;
             animator.Death();
         }
-        public void SubscribeToSwipes()
+        public void Subscribe()
         {
             SwipeInputHandler.Singleton.OnHorizontalSwipDetected += OnSwipe;
             SwipeInputHandler.Singleton.OnTap += OnJumpInput;
+            DifficultyManager.Singleton.OnDifficultyIncrease += IncreaseDifficulty;
         }
         private void OnSwipe(Swipe swipe)
         {
@@ -174,6 +176,10 @@ namespace EndlessRunner
         private bool IsGrounded()
         {
             return Physics.Raycast(groundChecker.position,Vector3.down, groundCheckDistance, groundMask);
+        }
+        private void IncreaseDifficulty(int level)
+        {
+            speed = levelSpeeds[level];
         }
 
     }

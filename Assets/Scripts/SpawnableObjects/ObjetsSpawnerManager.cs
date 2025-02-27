@@ -19,18 +19,25 @@ namespace EndlessRunner
             obstaclesPool = new PoolingManager<Obstacle>(obstaclesPoolData);
             collectablesPool = new PoolingManager<Collectable>(collectablesPoolData);
         }
-        public void IncreaseSpawnRate()
+        private void Start()
+        {
+            DifficultyManager.Singleton.OnDifficultyIncrease += IncreaseSpawnRate;
+        }
+        public void IncreaseSpawnRate(int level)
         {
             difficultyLevel++;
             if (difficultyLevel == difficultySpawnPatterns.Length)
                 difficultyLevel = difficultySpawnPatterns.Length;
         }
-        public ChunkObjects HandleObstaclesSpawn(Transform[,] spawners)
+        public ChunkObjects HandleObstaclesSpawn(Transform[,] spawners,Transform chunk)
         {
             List<Obstacle> chunkObstacles = new List<Obstacle>();
             List<Collectable> chunkCollectables= new List<Collectable>();
-            SpawnPattern spawnPattern = difficultySpawnPatterns[difficultyLevel].spawnFormulas
-                [Random.Range(0, difficultySpawnPatterns[difficultyLevel].spawnFormulas.Length)];
+            // So higher difficulty can spawn lesser difficulty aslso
+            int difficultyRandom=Random.Range(0, difficultyLevel+1);
+            SpawnPattern spawnPattern = difficultySpawnPatterns[difficultyRandom].spawnFormulas
+                [Random.Range(0, difficultySpawnPatterns[difficultyRandom].spawnFormulas.Length)];
+            chunk.name = spawnPattern.name;
             foreach(DirectionSpawnPoints direction in spawnPattern.DirectionSpawnPoints)
             {
                 foreach (int position in direction.ObstaclesPositions)

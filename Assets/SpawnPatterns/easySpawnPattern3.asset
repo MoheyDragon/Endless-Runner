@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DirectionSpawnPoints:
   - directionIndex: 0
-    ObstaclesPositions: 
-    CollectablesPositions: 00000000020000000400000005000000
-  - directionIndex: 2
-    ObstaclesPositions: 
-    CollectablesPositions: 00000000020000000400000005000000
+    ObstaclesPositions: 000000000100000002000000
+    CollectablesPositions: 030000000400000005000000
+  - directionIndex: 1
+    ObstaclesPositions: 0400000005000000
+    CollectablesPositions: 000000000100000002000000

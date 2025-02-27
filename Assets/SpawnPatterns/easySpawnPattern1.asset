@@ -16,3 +16,9 @@ MonoBehaviour:
   - directionIndex: 0
     ObstaclesPositions: 0000000001000000
     CollectablesPositions: 05000000
+  - directionIndex: 1
+    ObstaclesPositions: 0500000004000000
+    CollectablesPositions: 0000000001000000
+  - directionIndex: 2
+    ObstaclesPositions: 0000000001000000
+    CollectablesPositions: 05000000

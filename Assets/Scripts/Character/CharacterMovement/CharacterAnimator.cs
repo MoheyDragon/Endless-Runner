@@ -4,6 +4,7 @@ namespace EndlessRunner
     public class CharacterAnimator : MonoBehaviour
     {
         Animator animator;
+        [SerializeField] private float[] animationSpeedLevels;
         const string moveSpeedParameter = "Moving";
         const string animationSpeedParameter = "AnimationSpeed";
         const string isGroundedParameter = "IsGrounded";
@@ -12,6 +13,7 @@ namespace EndlessRunner
         private void Start()
         {
             animator = GetComponent<Animator>();
+            DifficultyManager.Singleton.OnDifficultyIncrease += IncreaseAnimationSpeedBasedOnDifficulty;
         }
         // Animation events Receviers
         public void OnStep()
@@ -40,16 +42,10 @@ namespace EndlessRunner
             StartRunning(false);
             animator.SetTrigger(deathParameter);
         }
-        private void Update()
+
+        private void IncreaseAnimationSpeedBasedOnDifficulty(int level)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
-                animator.SetFloat(animationSpeedParameter, 2);
-            if (Input.GetKey(KeyCode.LeftControl))
-                animator.SetFloat(animationSpeedParameter, 0.5f);
-            if (Input.GetKey(KeyCode.CapsLock))
-                animator.SetFloat(animationSpeedParameter, 1);
-
-
+            animator.SetFloat(animationSpeedParameter, animationSpeedLevels[level]);
         }
     }
 }

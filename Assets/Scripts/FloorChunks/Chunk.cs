@@ -49,7 +49,7 @@ namespace EndlessRunner
         ChunkObjects currentObjects;
         public void OnGet()
         {
-            currentObjects= ObjetsSpawnerManager.Singleton.HandleObstaclesSpawn(spawners);
+            currentObjects= ObjetsSpawnerManager.Singleton.HandleObstaclesSpawn(spawners,transform);
         }
 
         public void OnRelease()

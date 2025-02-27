@@ -35,6 +35,7 @@ namespace MoheyPoolingSystem
         {
             obj.OnRelease();
             obj.gameObject.SetActive(false);
+            obj.transform.parent=poolingData.poolParent;
         }
         private void DestroyObject(T obj)
         {
