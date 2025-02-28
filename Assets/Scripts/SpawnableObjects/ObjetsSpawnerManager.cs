@@ -60,10 +60,12 @@ namespace EndlessRunner
         public void HandleObstaclesRelease(ChunkObjects chunkObjects)
         {
             foreach (var obstacle in chunkObjects.obstacles)
-                obstaclesPool.pool.Release(obstacle);
+                if(obstacle != null)
+                    obstaclesPool.pool.Release(obstacle);
 
             foreach (var collectable in chunkObjects.collectables)
-                collectablesPool.pool.Release(collectable);
+                if(collectable != null)
+                    collectablesPool.pool.Release(collectable);
         }
         public void ReleaseCollectable(Collectable collectable)
         {
