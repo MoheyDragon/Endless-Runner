@@ -2241,7 +2241,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1545806602296978, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
       propertyPath: m_Name
-      value: CFX_Magical_Source
+      value: CollectVFX
       objectReference: {fileID: 0}
     - target: {fileID: 4464497929771776, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2754,8 +2754,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationSpeedLevels:
   - 1
-  - 1.25
-  - 1.5
+  - 1.15
+  - 1.3
 --- !u!95 &1693839964
 Animator:
   serializedVersion: 7
@@ -2811,7 +2811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af7c0c33edb2ef4396b10485c81cd06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 7000
+  maxHealth: 2
 --- !u!114 &1693839968
 MonoBehaviour:
   m_ObjectHideFlags: 0
